@@ -1,0 +1,17 @@
+{
+    "name": "com.eviltwo.unity-extensions",
+    "displayName": "eviltwo.UnityExtensions",
+    "version": "1.0.0",
+    "unity": "2022.3",
+    "description": "Extensions for Unity. It will be expanded according to my game development.",
+    "author": {
+        "name": "DAIKI(eviltwo)",
+        "url": "https://github.com/eviltwo"
+    },
+
+    "keywords": [
+    ],
+
+    "dependencies": {
+    }
+}
