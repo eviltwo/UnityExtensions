@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignore TMPro files for code language detection.
+UnityExtensions/Assets/TextMesh[[:space:]]Pro/** linguist-vendored
