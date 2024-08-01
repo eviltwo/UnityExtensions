@@ -53,9 +53,15 @@ namespace eviltwo.UnityExtensions
 
             if (_detectedControl == _currentControl)
             {
-                if (_currentControl == Control.Button && eventSystem.currentSelectedGameObject == null)
+                if (_currentControl == Control.Button)
                 {
-                    SelectObject();
+                    if (eventSystem.currentSelectedGameObject == null
+                        || !eventSystem.currentSelectedGameObject.activeInHierarchy
+                        || !eventSystem.currentSelectedGameObject.TryGetComponent<Selectable>(out var selectable)
+                        || !selectable.IsInteractable())
+                    {
+                        SelectObject();
+                    }
                 }
             }
             else
