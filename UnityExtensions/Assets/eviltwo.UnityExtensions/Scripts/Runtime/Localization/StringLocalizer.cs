@@ -5,6 +5,7 @@ using UnityEngine.Localization.Tables;
 
 namespace eviltwo.UnityExtensions
 {
+    [Obsolete("Use LocalizedString")]
     public class StringLocalizer : IDisposable
     {
         private readonly LocalizedStringTable _localizedStringTable;
