@@ -8,7 +8,7 @@ namespace eviltwo.UnityExtensions
     /// This class manages requests for time pause and time scale, and returns the modified scale value.
     /// Calling Dispose() on the request will revert the time changes.
     /// </summary>
-    public class TimeScaleRequestManager
+    public class TimeRequestManager
     {
         private readonly List<TimePauseRequest> _pauseRequests = new List<TimePauseRequest>();
 
@@ -95,9 +95,9 @@ namespace eviltwo.UnityExtensions
     /// </summary>
     public class TimePauseRequest : IDisposable
     {
-        private readonly TimeScaleRequestManager _manager;
+        private readonly TimeRequestManager _manager;
 
-        public TimePauseRequest(TimeScaleRequestManager manager)
+        public TimePauseRequest(TimeRequestManager manager)
         {
             _manager = manager;
         }
@@ -113,11 +113,11 @@ namespace eviltwo.UnityExtensions
     /// </summary>
     public class TimeScaleRequest : IDisposable
     {
-        private readonly TimeScaleRequestManager _manager;
+        private readonly TimeRequestManager _manager;
 
         public float Scale { get; set; } = 1.0f;
 
-        public TimeScaleRequest(TimeScaleRequestManager manager)
+        public TimeScaleRequest(TimeRequestManager manager)
         {
             _manager = manager;
         }

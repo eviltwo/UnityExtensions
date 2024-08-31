@@ -4,12 +4,12 @@ namespace eviltwo.UnityExtensions.Tests
 {
     public class TimeRequestManagerTest
     {
-        private TimeScaleRequestManager _timeScaleRequestManager;
+        private TimeRequestManager _timeScaleRequestManager;
 
         [SetUp]
         public void SetUp()
         {
-            _timeScaleRequestManager = new TimeScaleRequestManager();
+            _timeScaleRequestManager = new TimeRequestManager();
         }
 
         #region TestsForPause
