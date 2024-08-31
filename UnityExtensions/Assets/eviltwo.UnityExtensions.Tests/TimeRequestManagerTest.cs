@@ -12,7 +12,9 @@ namespace eviltwo.UnityExtensions.Tests
             _timeScaleRequestManager = new TimeRequestManager();
         }
 
-        #region TestsForPause
+        //
+        // Tests for Pause
+        //
         [Test]
         public void NotPausedByDefault()
         {
@@ -42,9 +44,10 @@ namespace eviltwo.UnityExtensions.Tests
             Assert.AreEqual(true, _timeScaleRequestManager.IsPaused());
             request.Dispose();
         }
-        #endregion
 
-        #region TestsForScale
+        //
+        // Tests for Scale
+        //
         [Test]
         public void DefaultScale()
         {
@@ -110,6 +113,5 @@ namespace eviltwo.UnityExtensions.Tests
             Assert.AreEqual(0.0f, _timeScaleRequestManager.GetTimeScale());
             request.Dispose();
         }
-        #endregion
     }
 }
