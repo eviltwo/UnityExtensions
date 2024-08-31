@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace eviltwo.UnityExtensions
 {
+    [Obsolete("Use " + nameof(TimeRequestManager) + " instead.")]
     public class TimeController
     {
         private bool _enablePauseControl = true;
