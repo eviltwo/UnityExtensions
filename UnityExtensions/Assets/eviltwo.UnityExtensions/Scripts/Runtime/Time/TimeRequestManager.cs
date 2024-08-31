@@ -10,6 +10,19 @@ namespace eviltwo.UnityExtensions
     /// </summary>
     public class TimeRequestManager
     {
+        private static TimeRequestManager _instance;
+        public static TimeRequestManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new TimeRequestManager();
+                }
+                return _instance;
+            }
+        }
+
         private readonly List<TimePauseRequest> _pauseRequests = new List<TimePauseRequest>();
 
         public TimePauseRequest RequestPause()
