@@ -1,0 +1,24 @@
+{
+    "name": "eviltwo.UnityExtensions.Editor",
+    "rootNamespace": "eviltwo.UnityExtensions.Editor",
+    "references": [
+        "GUID:eec0964c48f6f4e40bc3ec2257ccf8c5"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.localization",
+            "expression": "",
+            "define": "LOCALIZATION"
+        }
+    ],
+    "noEngineReferences": false
+}
