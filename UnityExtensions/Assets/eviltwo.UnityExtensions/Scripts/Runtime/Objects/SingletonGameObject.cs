@@ -14,6 +14,8 @@ namespace eviltwo.UnityExtensions
         {
             if (_instances.TryGetValue(_key, out var instance) && instance != null)
             {
+                // The object will not be destroyed in the current frame, so it will be deactivated.
+                gameObject.SetActive(false);
                 Destroy(gameObject);
                 return;
             }
