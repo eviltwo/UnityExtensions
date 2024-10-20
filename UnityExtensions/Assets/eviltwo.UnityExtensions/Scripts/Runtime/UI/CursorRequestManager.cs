@@ -22,13 +22,24 @@ namespace eviltwo.UnityExtensions
             }
         }
 
-        public bool PrioritizeActiveRequests = true;
+        /// <summary>
+        /// If true, active request has higher priority than inactive request.
+        /// If false, inactive request has higher priority than active request.
+        /// </summary>
+        public bool PrioritizeActiveWhenConfrict = true;
+
 
         private readonly List<CusorActiveRequest> _cursorActiveRequests = new List<CusorActiveRequest>();
 
-        public CusorActiveRequest RequestActive(bool active)
+        /// <summary>
+        /// Request active or inactive cursor.
+        /// </summary>
+        /// <param name="active">Cursor active</param>
+        /// <param name="priority">Priority of the request. Higher value has higher priority.</param>
+        /// <returns></returns>
+        public CusorActiveRequest RequestActive(bool active, int priority)
         {
-            var handle = new CusorActiveRequest(active, this);
+            var handle = new CusorActiveRequest(active, priority, this);
             _cursorActiveRequests.Add(handle);
             return handle;
         }
@@ -40,25 +51,21 @@ namespace eviltwo.UnityExtensions
 
         public bool ShouldActive()
         {
-            if (_cursorActiveRequests.Count == 0)
-            {
-                return true;
-            }
-
-            var hasPriorityActive = HasRequestAny(PrioritizeActiveRequests);
-            return hasPriorityActive ? PrioritizeActiveRequests : !PrioritizeActiveRequests;
-        }
-
-        private bool HasRequestAny(bool activeTarget)
-        {
+            var highestPriority = int.MinValue;
+            var active = true;
             foreach (var request in _cursorActiveRequests)
             {
-                if (request.IsActiveRequested == activeTarget)
+                if (request.Priority > highestPriority)
                 {
-                    return true;
+                    highestPriority = request.Priority;
+                    active = request.IsActiveRequested;
+                }
+                else if (request.Priority == highestPriority && request.IsActiveRequested == PrioritizeActiveWhenConfrict)
+                {
+                    active = request.IsActiveRequested;
                 }
             }
-            return false;
+            return active;
         }
 
         /// <summary>
@@ -68,10 +75,12 @@ namespace eviltwo.UnityExtensions
         {
             private readonly CursorRequestManager _manager;
             public readonly bool IsActiveRequested;
+            public readonly int Priority;
 
-            public CusorActiveRequest(bool isActiveRequested, CursorRequestManager manager)
+            public CusorActiveRequest(bool isActiveRequested, int priority, CursorRequestManager manager)
             {
                 IsActiveRequested = isActiveRequested;
+                Priority = priority;
                 _manager = manager;
             }
 

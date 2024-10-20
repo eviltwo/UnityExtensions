@@ -10,7 +10,7 @@ namespace eviltwo.UnityExtensions.Tests
         public void SetUp()
         {
             _cursorRequestManager = new CursorRequestManager();
-            _cursorRequestManager.PrioritizeActiveRequests = true;
+            _cursorRequestManager.PrioritizeActiveWhenConfrict = true;
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace eviltwo.UnityExtensions.Tests
         [Test]
         public void RequestActive()
         {
-            var request = _cursorRequestManager.RequestActive(true);
+            var request = _cursorRequestManager.RequestActive(true, 0);
             var result = _cursorRequestManager.ShouldActive();
             Assert.AreEqual(true, result);
         }
@@ -31,7 +31,7 @@ namespace eviltwo.UnityExtensions.Tests
         [Test]
         public void DisposeActive()
         {
-            var request = _cursorRequestManager.RequestActive(true);
+            var request = _cursorRequestManager.RequestActive(true, 0);
             request.Dispose();
             var result = _cursorRequestManager.ShouldActive();
             Assert.AreEqual(true, result);
@@ -40,7 +40,7 @@ namespace eviltwo.UnityExtensions.Tests
         [Test]
         public void RequestInactive()
         {
-            var request = _cursorRequestManager.RequestActive(false);
+            var request = _cursorRequestManager.RequestActive(false, 0);
             var result = _cursorRequestManager.ShouldActive();
             Assert.AreEqual(false, result);
         }
@@ -48,7 +48,7 @@ namespace eviltwo.UnityExtensions.Tests
         [Test]
         public void DisposeInactive()
         {
-            var request = _cursorRequestManager.RequestActive(false);
+            var request = _cursorRequestManager.RequestActive(false, 0);
             request.Dispose();
             var result = _cursorRequestManager.ShouldActive();
             Assert.AreEqual(true, result);
@@ -57,9 +57,9 @@ namespace eviltwo.UnityExtensions.Tests
         [Test]
         public void PriorizeActive()
         {
-            _cursorRequestManager.PrioritizeActiveRequests = true;
-            var request1 = _cursorRequestManager.RequestActive(true);
-            var request2 = _cursorRequestManager.RequestActive(false);
+            _cursorRequestManager.PrioritizeActiveWhenConfrict = true;
+            var request1 = _cursorRequestManager.RequestActive(true, 0);
+            var request2 = _cursorRequestManager.RequestActive(false, 0);
             var result = _cursorRequestManager.ShouldActive();
             Assert.AreEqual(true, result);
         }
@@ -67,11 +67,31 @@ namespace eviltwo.UnityExtensions.Tests
         [Test]
         public void PriorizeInactive()
         {
-            _cursorRequestManager.PrioritizeActiveRequests = false;
-            var request1 = _cursorRequestManager.RequestActive(true);
-            var request2 = _cursorRequestManager.RequestActive(false);
+            _cursorRequestManager.PrioritizeActiveWhenConfrict = false;
+            var request1 = _cursorRequestManager.RequestActive(true, 0);
+            var request2 = _cursorRequestManager.RequestActive(false, 0);
             var result = _cursorRequestManager.ShouldActive();
             Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void PriorizeActiveHigherPriority1()
+        {
+            _cursorRequestManager.PrioritizeActiveWhenConfrict = true;
+            var request1 = _cursorRequestManager.RequestActive(true, 0);
+            var request2 = _cursorRequestManager.RequestActive(false, 1);
+            var result = _cursorRequestManager.ShouldActive();
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void PriorizeActiveHigherPriority2()
+        {
+            _cursorRequestManager.PrioritizeActiveWhenConfrict = true;
+            var request1 = _cursorRequestManager.RequestActive(true, 1);
+            var request2 = _cursorRequestManager.RequestActive(false, 0);
+            var result = _cursorRequestManager.ShouldActive();
+            Assert.AreEqual(true, result);
         }
     }
 }
