@@ -29,7 +29,7 @@ namespace eviltwo.UnityExtensions
         public bool PrioritizeActiveWhenConfrict = true;
 
 
-        private readonly List<CusorActiveRequest> _cursorActiveRequests = new List<CusorActiveRequest>();
+        private readonly List<CursorActiveRequest> _cursorActiveRequests = new List<CursorActiveRequest>();
 
         /// <summary>
         /// Request active or inactive cursor.
@@ -37,14 +37,14 @@ namespace eviltwo.UnityExtensions
         /// <param name="active">Cursor active</param>
         /// <param name="priority">Priority of the request. Higher value has higher priority.</param>
         /// <returns></returns>
-        public CusorActiveRequest RequestActive(bool active, int priority)
+        public CursorActiveRequest RequestActive(bool active, int priority)
         {
-            var handle = new CusorActiveRequest(active, priority, this);
+            var handle = new CursorActiveRequest(active, priority, this);
             _cursorActiveRequests.Add(handle);
             return handle;
         }
 
-        internal void ReleasePause(CusorActiveRequest handle)
+        internal void ReleasePause(CursorActiveRequest handle)
         {
             _cursorActiveRequests.Remove(handle);
         }
@@ -67,27 +67,27 @@ namespace eviltwo.UnityExtensions
             }
             return active;
         }
+    }
 
-        /// <summary>
-        /// Request active or inactive cursor. Dispose to revert the change.
-        /// </summary>
-        public class CusorActiveRequest : IDisposable
+    /// <summary>
+    /// Request active or inactive cursor. Dispose to revert the change.
+    /// </summary>
+    public class CursorActiveRequest : IDisposable
+    {
+        private readonly CursorRequestManager _manager;
+        public readonly bool IsActiveRequested;
+        public readonly int Priority;
+
+        public CursorActiveRequest(bool isActiveRequested, int priority, CursorRequestManager manager)
         {
-            private readonly CursorRequestManager _manager;
-            public readonly bool IsActiveRequested;
-            public readonly int Priority;
+            IsActiveRequested = isActiveRequested;
+            Priority = priority;
+            _manager = manager;
+        }
 
-            public CusorActiveRequest(bool isActiveRequested, int priority, CursorRequestManager manager)
-            {
-                IsActiveRequested = isActiveRequested;
-                Priority = priority;
-                _manager = manager;
-            }
-
-            public void Dispose()
-            {
-                _manager.ReleasePause(this);
-            }
+        public void Dispose()
+        {
+            _manager.ReleasePause(this);
         }
     }
 }
