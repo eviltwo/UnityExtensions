@@ -1,11 +1,14 @@
-#if STEAMWORKS
-using Steamworks;
 using UnityEngine;
+
+#if STEAMWORKS && !DISABLESTEAMWORKS
+using Steamworks;
+#endif
 
 namespace eviltwo.UnityExtensions.SteamworksNET.Debugs
 {
     public class SteamConnectionCheckDebug : MonoBehaviour
     {
+#if STEAMWORKS && !DISABLESTEAMWORKS
         private void Start()
         {
             if (SteamManager.Initialized)
@@ -18,6 +21,6 @@ namespace eviltwo.UnityExtensions.SteamworksNET.Debugs
                 Debug.Log("Steam not connected.");
             }
         }
+#endif
     }
 }
-#endif

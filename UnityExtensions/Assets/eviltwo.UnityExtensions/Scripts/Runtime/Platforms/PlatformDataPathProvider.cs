@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-#if STEAMWORKS
+#if STEAMWORKS && !DISABLESTEAMWORKS
 using Steamworks;
 #endif
 
@@ -18,7 +18,7 @@ namespace eviltwo.UnityExtensions
 
         public static string GetDirectory()
         {
-#if STEAMWORKS
+#if STEAMWORKS && !DISABLESTEAMWORKS
             try
             {
                 return GetSteamDirectory();
@@ -32,7 +32,7 @@ namespace eviltwo.UnityExtensions
             return GetSharedDirectory();
         }
 
-#if STEAMWORKS
+#if STEAMWORKS && !DISABLESTEAMWORKS
         private static string GetSteamDirectory()
         {
             var userSteamId = SteamUser.GetSteamID().m_SteamID;
