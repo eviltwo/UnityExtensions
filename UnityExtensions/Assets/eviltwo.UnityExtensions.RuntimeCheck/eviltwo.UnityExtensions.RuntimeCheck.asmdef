@@ -1,0 +1,16 @@
+{
+    "name": "eviltwo.UnityExtensions.RuntimeCheck",
+    "rootNamespace": "eviltwo.UnityExtensions.RuntimeCheck",
+    "references": [
+        "GUID:4a2c75c0e90984645b53e24cf3d5e8ba"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
