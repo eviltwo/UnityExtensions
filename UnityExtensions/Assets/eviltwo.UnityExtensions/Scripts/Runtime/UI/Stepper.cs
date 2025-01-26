@@ -42,9 +42,9 @@ namespace eviltwo.UnityExtensions
         [SerializeField]
         public UnityEvent<int> OnValueChanged = default;
 
-        protected override void Awake()
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
             if (_decreaseButton != null)
             {
                 _decreaseButton.onClick.AddListener(Decrease);
@@ -55,9 +55,9 @@ namespace eviltwo.UnityExtensions
             }
         }
 
-        protected override void OnDestroy()
+        protected override void OnDisable()
         {
-            base.OnDestroy();
+            base.OnDisable();
             if (_decreaseButton != null)
             {
                 _decreaseButton.onClick.RemoveListener(Decrease);
@@ -70,7 +70,7 @@ namespace eviltwo.UnityExtensions
 
         public override void OnMove(AxisEventData eventData)
         {
-            base.OnMove(eventData);
+            var oldValue = _value;
             if (MoveAxis == Axis.Horizontal && eventData.moveDir == MoveDirection.Left
                 || MoveAxis == Axis.Vertical && eventData.moveDir == MoveDirection.Down)
             {
@@ -94,6 +94,11 @@ namespace eviltwo.UnityExtensions
                 {
                     Increase();
                 }
+            }
+
+            if (oldValue == _value)
+            {
+                base.OnMove(eventData);
             }
         }
 
