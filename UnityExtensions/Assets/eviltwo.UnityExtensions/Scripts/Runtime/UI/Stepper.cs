@@ -104,6 +104,7 @@ namespace eviltwo.UnityExtensions
 
         public void SetValue(int value, bool withoutNotify = false)
         {
+            var oldValue = _value;
             if (Loop)
             {
                 var size = MaxValue - MinValue + 1;
@@ -118,7 +119,7 @@ namespace eviltwo.UnityExtensions
                 _increaseButton.interactable = _value < MaxValue;
             }
 
-            if (!withoutNotify)
+            if (oldValue != _value && !withoutNotify)
             {
                 OnValueChanged?.Invoke(_value);
             }
