@@ -53,7 +53,6 @@ namespace eviltwo.UnityExtensions
             {
                 _increaseButton.onClick.AddListener(Increase);
             }
-            OnValueChanged?.Invoke(_value);
         }
 
         protected override void OnDestroy()
