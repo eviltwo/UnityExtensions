@@ -42,9 +42,9 @@ namespace eviltwo.UnityExtensions
         [SerializeField]
         public UnityEvent<int> OnValueChanged = default;
 
-        protected override void Awake()
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
             if (_decreaseButton != null)
             {
                 _decreaseButton.onClick.AddListener(Decrease);
@@ -53,12 +53,11 @@ namespace eviltwo.UnityExtensions
             {
                 _increaseButton.onClick.AddListener(Increase);
             }
-            OnValueChanged?.Invoke(_value);
         }
 
-        protected override void OnDestroy()
+        protected override void OnDisable()
         {
-            base.OnDestroy();
+            base.OnDisable();
             if (_decreaseButton != null)
             {
                 _decreaseButton.onClick.RemoveListener(Decrease);
@@ -71,7 +70,7 @@ namespace eviltwo.UnityExtensions
 
         public override void OnMove(AxisEventData eventData)
         {
-            base.OnMove(eventData);
+            var oldValue = _value;
             if (MoveAxis == Axis.Horizontal && eventData.moveDir == MoveDirection.Left
                 || MoveAxis == Axis.Vertical && eventData.moveDir == MoveDirection.Down)
             {
@@ -96,10 +95,16 @@ namespace eviltwo.UnityExtensions
                     Increase();
                 }
             }
+
+            if (oldValue == _value)
+            {
+                base.OnMove(eventData);
+            }
         }
 
         public void SetValue(int value, bool withoutNotify = false)
         {
+            var oldValue = _value;
             if (Loop)
             {
                 var size = MaxValue - MinValue + 1;
@@ -114,7 +119,7 @@ namespace eviltwo.UnityExtensions
                 _increaseButton.interactable = _value < MaxValue;
             }
 
-            if (!withoutNotify)
+            if (oldValue != _value && !withoutNotify)
             {
                 OnValueChanged?.Invoke(_value);
             }
