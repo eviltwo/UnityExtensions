@@ -5,7 +5,7 @@ namespace eviltwo.UnityExtensions.Editor
 {
     public static class CreateEmptyNeighbor
     {
-        [MenuItem("GameObject/Create Empty Neighbor", false, 0)]
+        [MenuItem("GameObject/Create Empty Neighbor", priority = 0, secondaryPriority = 4)]
         private static void Execute()
         {
             if (Selection.activeGameObject == null)
