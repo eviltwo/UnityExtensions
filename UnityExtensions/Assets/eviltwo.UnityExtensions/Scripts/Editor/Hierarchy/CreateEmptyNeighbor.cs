@@ -17,7 +17,6 @@ namespace eviltwo.UnityExtensions.Editor
             var gameObject = new GameObject("GameObject");
             gameObject.transform.SetParent(activeTransform.parent);
             gameObject.transform.SetPositionAndRotation(activeTransform.position, activeTransform.rotation);
-            gameObject.transform.localScale = activeTransform.localScale;
             gameObject.transform.SetSiblingIndex(Selection.activeGameObject.transform.GetSiblingIndex() + 1);
             Undo.RegisterCreatedObjectUndo(gameObject, "Create Empty Neighbor");
             Selection.activeGameObject = gameObject;
