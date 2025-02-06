@@ -19,6 +19,7 @@ namespace eviltwo.UnityExtensions.Editor
             gameObject.transform.SetPositionAndRotation(activeTransform.position, activeTransform.rotation);
             gameObject.transform.localScale = activeTransform.localScale;
             gameObject.transform.SetSiblingIndex(Selection.activeGameObject.transform.GetSiblingIndex() + 1);
+            Undo.RegisterCreatedObjectUndo(gameObject, "Create Empty Neighbor");
             Selection.activeGameObject = gameObject;
         }
 
